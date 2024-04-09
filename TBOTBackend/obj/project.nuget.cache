@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "lNRpC5+0kHEMLmhPqHJcwkyK9IpWjZ+0S3tvydsNEQ8SAbNeVHe4Prhb5fexo6VbuIlyTemIh9Hcdq5t9u1hgQ==",
+  "success": true,
+  "projectFilePath": "D:\\GitProjects\\PetProjects\\TheBasisOfTrust\\TBOTBackend\\TBOTBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\toccs\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.14\\microsoft.aspnetcore.openapi.7.0.14.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
