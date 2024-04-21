@@ -29,7 +29,7 @@ public class UserRepository : IUserRepository
         return await _dbContext.Users.ToListAsync();
     }
 
-    public async Task<User?> GetUserByUserName(string userName)
+    public async Task<User?> GetUserByUsername(string userName)
     {
         return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == userName);
     }
