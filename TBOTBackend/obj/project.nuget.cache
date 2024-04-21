@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "qRFH6+RNJkXAndHOhlGsBW+IME0GVHn6r7DsKIb4Xs775gbDMYJqSpUzcAGko8179AvMjvaR3OxxV3B5qN82Vw==",
+  "dgSpecHash": "IwchCYva37NJZtcmr5w2WB8URJktQWGBIMN5El1JFbQ90/HhB5oA+JzW3XlrvaiAWa1AMtDJzZqQhBwSgi1SqQ==",
   "success": true,
   "projectFilePath": "D:\\GitProjects\\PetProjects\\TheBasisOfTrust\\TBOTBackend\\TBOTBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\toccs\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\toccs\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\toccs\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\toccs\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.16\\microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512",
     "C:\\Users\\toccs\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.16\\microsoft.aspnetcore.cryptography.internal.6.0.16.nupkg.sha512",
     "C:\\Users\\toccs\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.16\\microsoft.aspnetcore.cryptography.keyderivation.6.0.16.nupkg.sha512",
     "C:\\Users\\toccs\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.16\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.16.nupkg.sha512",
