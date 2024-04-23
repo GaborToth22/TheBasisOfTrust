@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using TBOTBackend.Data;
 using TBOTBackend.Model;
 
@@ -81,5 +82,12 @@ public class BalanceRepository : IBalanceRepository
     {
         _dbContext.Remove(balance);
         _dbContext.SaveChanges();
+    }
+
+    public async Task<List<Balance>> GetAllByUserId(int userId)
+    {
+        return await _dbContext.Balances
+            .Where(b => b.UserId == userId || b.ParticipantUserId == userId)
+            .ToListAsync();
     }
 }
