@@ -2,3 +2,15 @@
   min-height: 100vh;
 }
 
+.tbot-image {
+  width: 70px;
+  height: 70px;
+}
+
+.custom-container {
+  background-color: #173f5f; /* Sötétkék háttérszín */
+}
+
+.text-white {
+  color: white; /* Fehér szöveg */
+}

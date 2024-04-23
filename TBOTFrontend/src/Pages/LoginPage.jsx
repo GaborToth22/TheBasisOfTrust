@@ -47,7 +47,7 @@ function LoginPage({loggedUser, setLoggedUser}){
     };
 
     return (
-         <Container className='d-flex justify-content-center align-items-center' style={{ minHeight: '100vh' }}>
+         <Container className='d-flex justify-content-center align-items-center custom-container text-white' style={{ minHeight: '100vh' }}>
             {loggedUser ? (
                 // Show only when user is logged in
                 <>
@@ -66,36 +66,32 @@ function LoginPage({loggedUser, setLoggedUser}){
                             <h3>The Basis Of Trust please log in.</h3>                            
                         </Col>
                     </Row>
-                    <Row className='justify-content-center'>
+                    <Row className='justify-content-center text-center'>
                         <Col xs={10} md={6} lg={6}>
                         <FormGroup>
                             <FormLabel>Username</FormLabel>
                             <Form.Control type="text" placeholder="Your username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-                            <Form.Text className='text-muted'>
-                                We'll never share you email address, trust us!
-                            </Form.Text>
                         </FormGroup>
                         </Col>
                         <Col xs={10} md={6} lg={6}>
                         <FormGroup>
                             <FormLabel>Password</FormLabel>
-                            <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>                            
+                            <Form.Control type="password" placeholder="Your Password" value={password} onChange={(e) => setPassword(e.target.value)}/>                            
                         </FormGroup>
                         </Col>
-                    </Row>
+                    </Row>                    
                     <Row className='justify-content-center'>
-                        <Col xs={10} md={4} lg={3}>
-                            <Button variant='primary' type='submit' onClick={handleLoginSubmit} className='w-100'>Login</Button>
+                        <Col xs={4} md={4} lg={4}>
+                            <Button variant='primary' type='submit' onClick={handleLoginSubmit} className='w-100 mb-3 mt-3'>Login</Button>
                         </Col>
                     </Row>
                     <Row className='justify-content-center text-center'>
                         <Col>
                             <p>Not a member yet? <span onClick={handleRegisterClick} style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Register</span></p>
                         </Col>
-                    </Row>
-                        
-                        
-                    
+                    </Row> 
+                    <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+
                     {showRegistration && <RegistrationForm setShowRegistration={setShowRegistration} />}
                 </Form>
             )}
