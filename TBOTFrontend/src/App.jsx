@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/" element={<DashboardPage {...{ loggedUser, setLoggedUser}} />} />
         <Route path="/login" element={<LoginPage {...{ loggedUser, setLoggedUser}} />} />
         <Route path="/allExpenses" element={<AllExpensesPage {...{ loggedUser, setLoggedUser}} />} />
         <Route path="/yourAccount" element={<YourAccountPage {...{ loggedUser, setLoggedUser}} />} />
