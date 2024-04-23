@@ -18,9 +18,9 @@ public class ExpenseRepository : IExpenseRepository
         return await _dbContext.Expenses.ToListAsync();
     }
 
-    public async Task<List<Expense>> GetAllByUser(User user)
+    public async Task<List<Expense>> GetAllByUserId(int userId)
     {
-        return await _dbContext.Expenses.Where(e => e.Participants.Any(p => p.UserId == user.Id))
+        return await _dbContext.Expenses.Where(e => e.Participants.Any(p => p.UserId == userId))
             .ToListAsync();
     }
 
