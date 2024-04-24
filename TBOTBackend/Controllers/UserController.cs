@@ -31,7 +31,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet("{username}")]
+    [HttpGet("username/{username}")]
     public async Task<ActionResult<User>> GetUserByUsername(string username)
     {
         try
@@ -46,7 +46,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet("{email}")]
+    [HttpGet("email/{email}")]
     public async Task<ActionResult<User>> GetUserByEmail(string email)
     {
         try
@@ -61,7 +61,7 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("id/{id}")]
     public async Task<ActionResult<User>> GetUserById(int id)
     {
         try
