@@ -1,5 +1,6 @@
-:root {
+#root {
   min-height: 100vh;
+  background-color: #173f5f;
 }
 
 .tbot-image {
@@ -8,7 +9,7 @@
 }
 
 .custom-container {
-  background-color: #173f5f; /* Sötétkék háttérszín */
+  /*background-color: #173f5f;*/ /* Sötétkék háttérszín */
 }
 
 .text-white {
