@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button, Popover, Form, FormGroup, FormLabel } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
+import RegistrationModal from '../Components/RegistrationModal';
 
 function LoginPage({loggedUser, setLoggedUser}){
     const navigate = useNavigate();
-    const [showRegistration, setShowRegistration] = useState(false);
+    const [modalShow, setModalShow] = React.useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(null);
@@ -40,11 +41,7 @@ function LoginPage({loggedUser, setLoggedUser}){
             setLoginError('Invalid username or password. Please try agagin.');
             console.error('Invalid username or password during login.');
         }
-    }
-
-    const handleRegisterClick = () => {
-        setShowRegistration(true);
-    };
+    }  
 
     return (
          <Container className='d-flex justify-content-center align-items-center custom-container text-white' style={{ minHeight: '100vh' }}>
@@ -76,7 +73,10 @@ function LoginPage({loggedUser, setLoggedUser}){
                         <Col xs={10} md={6} lg={6}>
                         <FormGroup>
                             <FormLabel>Password</FormLabel>
-                            <Form.Control type="password" placeholder="Your Password" value={password} onChange={(e) => setPassword(e.target.value)}/>                            
+                            <Form.Control type="password" placeholder="Your Password" value={password} onChange={(e) => setPassword(e.target.value)}/>  
+                            <Form.Text className='text-white'>
+                                Your at least 6 characters long password.
+                            </Form.Text>                          
                         </FormGroup>
                         </Col>
                     </Row>                    
@@ -87,12 +87,13 @@ function LoginPage({loggedUser, setLoggedUser}){
                     </Row>
                     <Row className='justify-content-center text-center'>
                         <Col>
-                            <p>Not a member yet? <span onClick={handleRegisterClick} style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Register</span></p>
+                            <p>Not a member yet? <span onClick={() => setModalShow(true)} style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Register</span></p>
                         </Col>
                     </Row> 
                     <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
-
-                    {showRegistration && <RegistrationForm setShowRegistration={setShowRegistration} />}
+                    <RegistrationModal
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}/>
                 </Form>
             )}
         </Container>
