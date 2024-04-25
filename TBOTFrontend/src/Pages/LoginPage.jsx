@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 import RegistrationModal from '../Components/RegistrationModal';
+import { useLoggedUser } from '../Services/LoggedUserProvider';
 
-function LoginPage({loggedUser, setLoggedUser}){
+function LoginPage(){
     const navigate = useNavigate();
     const [modalShow, setModalShow] = React.useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(null);
+    const { loggedUser, setLoggedUser } = useLoggedUser()
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('/auth/login', {
+            const loginResponse = await fetch('/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,11 +27,12 @@ function LoginPage({loggedUser, setLoggedUser}){
                 }),
             });            
 
-            if (response.ok ) {
-                const response = await fetch(`/users/username/${username}`);
-                const userData = await response.json();
+            if (loginResponse.ok ) {
+                const userDataResponse = await fetch(`/users/username/${username}`);
+                const userData = await userDataResponse.json();
                 await setLoggedUser(userData);
                 console.log('User successfully logged in.');
+                console.log(userData);
                 setTimeout(() => {
                     navigate('/');
                 }, 2000);
