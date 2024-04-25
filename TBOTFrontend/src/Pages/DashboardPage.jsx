@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import Navbar from '../Components/Navbar';
 
-function DashboardPage(){
+function DashboardPage(){        
 
     return (
-        <div>dashboardpage</div>
-    );
+        <Navbar />
+    )
 }
 
 export default DashboardPage;
