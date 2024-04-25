@@ -9,7 +9,7 @@ function LoginPage(){
     const [modalShow, setModalShow] = React.useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loginError, setLoginError] = useState(null);
+    const [loginError, setLoginError] = useState("");
     const { loggedUser, setLoggedUser } = useLoggedUser()
 
     const handleLoginSubmit = async (e) => {
@@ -28,6 +28,7 @@ function LoginPage(){
             });            
 
             if (loginResponse.ok ) {
+                setLoginError("")
                 const userDataResponse = await fetch(`/users/username/${username}`);
                 const userData = await userDataResponse.json();
                 await setLoggedUser(userData);
@@ -75,12 +76,17 @@ function LoginPage(){
                             </Form.Text>                          
                         </FormGroup>
                         </Col>
-                    </Row>                    
+                    </Row>      
+                    <Row className='justify-content-center text-center'>
+                        <Col xs={12} md={12} lg={12}>
+                            <p>{loginError}</p>
+                        </Col>
+                    </Row>
                     <Row className='justify-content-center'>
                         <Col xs={4} md={4} lg={4}>
                             <Button variant='primary' type='submit' onClick={handleLoginSubmit} className='w-100 mb-3 mt-3'>Login</Button>
                         </Col>
-                    </Row>
+                    </Row>              
                     <Row className='justify-content-center text-center'>
                         <Col>
                             <p>Not a member yet? <span onClick={() => setModalShow(true)} style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Register</span></p>
