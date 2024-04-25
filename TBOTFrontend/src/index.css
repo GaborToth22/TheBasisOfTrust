@@ -15,3 +15,20 @@
 .text-white {
   color: white; /* Fehér szöveg */
 }
+
+.logout-image {
+  width: 30px;
+  height: 30px;
+  filter: invert(100%);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;  
+  margin-top: 5px;
+}
+
+.navbar-text {
+  margin-top: 5px;
+}
+
+.logout-image:hover {
+  transform: scale(1.1);
+}
