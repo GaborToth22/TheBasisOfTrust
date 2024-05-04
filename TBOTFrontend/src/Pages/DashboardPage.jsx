@@ -11,11 +11,27 @@ import AcceptRequest from "../Components/AcceptRequest";
 function DashboardPage(){  
     const { loggedUser, setLoggedUser } = useLoggedUser();
     const [balances, setBalances] = useState(undefined);
+    const [filter, setFilter] = useState("");
+    const [filteredFriends, setFilteredFriends] = useState([]);
     const [addFriendModalShow, setAddFriendModalShow] = useState(false);
+    const [addExpenseModalShow, setAddExpenseModalShow] = useState(false);
+
 
     useEffect(() => {   
         fetchBalances();
     }, [loggedUser]);
+
+    useEffect(() => {
+        if (loggedUser) {
+            const filtered = loggedUser.friendshipsSent.concat(loggedUser.friendshipsReceived)
+                .filter(friendship => friendship.accepted)
+                .filter(friendship => {
+                    return friendship.receiverName?.toLowerCase().includes(filter.toLowerCase()) ||
+                           friendship.senderName?.toLowerCase().includes(filter.toLowerCase());
+                });
+            setFilteredFriends(filtered);
+        }
+    }, [loggedUser, filter]);
 
     const fetchBalances = async () => {
         try {
@@ -43,18 +59,22 @@ function DashboardPage(){
         }
     };
 
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
+
     function renderFriends(loggedUser) {
         
-        const Friends = [...loggedUser.friendshipsSent, ...loggedUser.friendshipsReceived]
-            .filter(friendship => friendship.accepted)            
-            
-            return Friends.map(friendship => (
-                <div key={friendship.id} className="d-flex justify-content-between align-items-center" style={{ margin: '1rem' ,borderBottom: '1px solid black' }}>
-                    <div>{friendship.receiverName === null ? friendship.senderName : friendship.receiverName}</div>                    
-                    <DeleteFriend onClick={() => deleteFriend(loggedUser.id, friendship.receiverName === null ? friendship.senderId : friendship.receiverId)}/>
-                </div>
-            ));
-        
+        return (
+            <>
+                {filteredFriends.map(friendship => (
+                    <div key={friendship.id} className="d-flex justify-content-between align-items-center" style={{ margin: '1rem' ,borderBottom: '1px solid black' }}>
+                        <div>{friendship.receiverName === null ? friendship.senderName : friendship.receiverName}</div>                    
+                        <DeleteFriend onClick={() => deleteFriend(loggedUser.id, friendship.receiverName === null ? friendship.senderId : friendship.receiverId)}/>
+                    </div>
+                ))}
+            </>
+        );
     }
 
     function renderFriendRequestes(loggedUser) {
@@ -144,7 +164,7 @@ function DashboardPage(){
                 <Col xs={3} md={3} lg={3}>
                     <FormGroup className='d-flex align-items-center'> 
                         <img src='/src/Images/searchIcon.png' alt='search' className='search-image' />
-                        <Form.Control type="text" placeholder="Filter by Name" />
+                        <Form.Control type="text" placeholder="Filter by Name" value={filter} onChange={handleFilterChange}/>
                     </FormGroup>
                     <div className="mt-3" style={{backgroundColor: '#067f99', borderRadius: '6px'}}>
                         <div style={{backgroundColor: '#067f99', borderRadius: '6px' , height: '91vh'}}>
