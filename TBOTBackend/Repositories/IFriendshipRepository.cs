@@ -4,8 +4,8 @@ namespace TBOTBackend.Repositories;
 
 public interface IFriendshipRepository
 {
-    Task SendFriendRequest(int senderId, int receiverId);
-    Task AcceptFriendRequest(int senderId, int receiverId);
-    Task DeclineFriendRequest(int senderId, int receiverId);
-    Task<Friendship> GetFriendship(int senderId, int receiverId);
+    Task<string> SendFriendRequest(int senderId, int receiverId);
+    Task<string> AcceptFriendRequest(int senderId, int receiverId);
+    Task<string> DeclineFriendRequest(int senderId, int receiverId);
+    Task<List<Friendship>> GetAllFriendshipsById(int userId);
 }

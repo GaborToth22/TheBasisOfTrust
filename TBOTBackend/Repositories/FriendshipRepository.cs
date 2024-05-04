@@ -14,48 +14,83 @@ public class FriendshipRepository : IFriendshipRepository
         _dbContext = dbContext;
     }
     
-    public async Task SendFriendRequest(int senderId, int receiverId)
+    public async Task<string> SendFriendRequest(int senderId, int receiverId)
     {
+        var existingFriendship = await _dbContext.Friendships
+            .FirstOrDefaultAsync(f =>
+                (f.SenderId == senderId && f.ReceiverId == receiverId) ||
+                (f.SenderId == receiverId && f.ReceiverId == senderId));
+        
+        if (existingFriendship != null)
+        {
+            return "The friend request has already been sent or you are connected with this user.";
+            
+        }
+        var sender = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == senderId);
+        var receiver = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == receiverId);
+        
         var friendship = new Friendship
         {
-            UserId = senderId,
-            FriendId = receiverId,
-            Accepted = false 
+            SenderId = senderId,
+            ReceiverId = receiverId,
+            SenderName = sender.Username,
+            SenderEmail = sender.Email,
+            ReceiverName = receiver.Username,
+            ReceiverEmail = receiver.Email,
+            Accepted = false
         };
 
         _dbContext.Friendships.Add(friendship);
         await _dbContext.SaveChangesAsync();
+        
+        return "Friend request sent successfully.";
     }
 
-    public async Task AcceptFriendRequest(int senderId, int receiverId)
+    public async Task<string> AcceptFriendRequest(int senderId, int receiverId)
     {
         var friendship = await _dbContext.Friendships
             .FirstOrDefaultAsync(f => 
-                (f.UserId == senderId && f.FriendId == receiverId || f.UserId == receiverId && f.FriendId == senderId) 
-                && !f.Accepted);
+                (f.SenderId == senderId && f.ReceiverId == receiverId) || (f.SenderId == receiverId && f.ReceiverId == senderId));
 
         if (friendship != null)
         {
             friendship.Accepted = true;
             await _dbContext.SaveChangesAsync();
+            return "Friend request accepted succesfully.";
         }
+        
+        return "Friend request don't found";
     }
 
-    public async Task DeclineFriendRequest(int senderId, int receiverId)
+    public async Task<string> DeclineFriendRequest(int senderId, int receiverId)
     {
         var friendship = await _dbContext.Friendships.FirstOrDefaultAsync(f =>
-            (f.UserId == senderId && f.FriendId == receiverId) || (f.UserId == receiverId && f.FriendId == senderId));
+            (f.SenderId == senderId && f.ReceiverId == receiverId) || (f.SenderId == receiverId && f.ReceiverId == senderId));
 
         if (friendship != null)
         {
             _dbContext.Friendships.Remove(friendship);
             await _dbContext.SaveChangesAsync();
+            return "Friend request deleted succesfully.";
         }
+        return "Friend request don't found";
     }
-
-    public async Task<Friendship> GetFriendship(int senderId, int receiverId)
+    
+    public async Task<List<Friendship>> GetAllFriendshipsById(int userId)
     {
-        return await _dbContext.Friendships
-            .SingleOrDefaultAsync(f => (f.UserId == senderId && f.FriendId == receiverId) || (f.UserId == receiverId && f.FriendId == senderId));
+        var friendshipsS = await _dbContext.Friendships
+            .Where(f => f.SenderId == userId)
+            .Include(f => f.Receiver) 
+            .ToListAsync(); 
+        
+        var friendshipsR = await _dbContext.Friendships
+            .Where(f => f.ReceiverId == userId)
+            .Include(f => f.Sender) 
+            .ToListAsync();
+        
+
+        var allFriendships = friendshipsS.Concat(friendshipsR).ToList();
+
+        return allFriendships;
     }
 }
