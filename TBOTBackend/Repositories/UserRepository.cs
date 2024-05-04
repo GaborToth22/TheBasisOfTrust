@@ -29,9 +29,45 @@ public class UserRepository : IUserRepository
         return await _dbContext.Users.ToListAsync();
     }
 
-    public async Task<User?> GetUserByUsername(string userName)
+    public async Task<User?> GetUserByUsername(string username)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == userName);
+        return await _dbContext.Users
+            .Include(u => u.FriendshipsSent)
+                .ThenInclude(f => f.Receiver)
+            .Include(u => u.FriendshipsSent)
+                .ThenInclude(f => f.Sender)
+            .Include(u => u.FriendshipsReceived)
+                .ThenInclude(f => f.Sender)
+            .Include(u => u.FriendshipsReceived)
+                .ThenInclude(f => f.Receiver)
+            .Where(u => u.Username == username)
+            .Select(u => new User 
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+                FriendshipsSent = u.FriendshipsSent.Select(f => new Friendship 
+                {
+                    Id = f.Id,
+                    SenderId = f.SenderId,
+                    ReceiverId = f.ReceiverId,
+                    ReceiverName = f.Receiver.Username,
+                    ReceiverEmail = f.Receiver.Email,
+                    Accepted = f.Accepted
+                    // Itt adhatsz meg más tulajdonságokat is, amelyekre szükséged van
+                }).ToList(),
+                FriendshipsReceived = u.FriendshipsReceived.Select(f => new Friendship 
+                {
+                    Id = f.Id,
+                    SenderId = f.SenderId,
+                    SenderName = f.Sender.Username,
+                    SenderEmail = f.Sender.Email,
+                    ReceiverId = f.ReceiverId,
+                    Accepted = f.Accepted
+                    // Itt adhatsz meg más tulajdonságokat is, amelyekre szükséged van
+                }).ToList()
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<User?> GetUserById(int id)
