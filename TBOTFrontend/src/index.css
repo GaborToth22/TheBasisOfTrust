@@ -32,3 +32,39 @@
 .logout-image:hover {
   transform: scale(1.1);
 }
+
+.search-image {
+  width: 25px;
+  height: 25px;
+  filter: invert(100%);
+  margin-right: 2px;
+}  
+
+.icon-buttons {
+  width: 25px;
+  height: 25px;
+  filter: invert(100%);
+  margin-right: 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}  
+
+.icon-buttons:hover {
+  transform: scale(1.1);
+}
+
+.sendRequest-button {
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sendRequest-button:hover {
+  transform: scale(1.1);
+}
+
+.fonts {
+  font-size: large;
+}

@@ -22,7 +22,7 @@ function Navbar(){
     return (
         <Container>
             <Row className="justify-content-between">
-                <Col xs={4} md={8} lg={8}>
+                <Col xs={4} sm={8} md={8} lg={8}>
                     <Nav variant="underline" className="justify-content-between">
                         <Nav.Item>
                             <Nav.Link href="/" className={`text-white ${location.pathname === '/' ? 'active' : ''}`}>Dashboard</Nav.Link>
@@ -35,7 +35,7 @@ function Navbar(){
                         </Nav.Item>
                     </Nav>
                 </Col>
-                <Col xs={4} md={3} lg={2}>
+                <Col xs={4} sm={4} md={3} lg={3}>
                     <Nav className="justify-content-between">
                     <Nav.Item className="mt-2">
                         <NavbarText className="text-white navbar-text">{loggedUser ? loggedUser.username : ''}</NavbarText>
