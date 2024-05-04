@@ -66,18 +66,21 @@ public class DatabaseContext : DbContext
         
         builder.Entity<Friendship>(e =>
         {
-            e.HasKey(f => new { f.UserId, f.FriendId });
+            e.Property(f => f.Id)
+                .ValueGeneratedOnAdd();
+            e.HasKey(f => f.Id);
             
-            e.HasOne(f => f.User)
-                .WithMany(u => u.Friendships)
-                .HasForeignKey(f => f.UserId)
+            e.HasOne(f => f.Sender)
+                .WithMany(u => u.FriendshipsSent)
+                .HasForeignKey(f => f.SenderId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            e.HasOne(f => f.Friend)
-                .WithMany()
-                .HasForeignKey(f => f.FriendId)
-                .OnDelete(DeleteBehavior.Cascade);
+            e.HasOne(f => f.Receiver)
+                .WithMany(u => u.FriendshipsReceived)
+                .HasForeignKey(f => f.ReceiverId)
+                .OnDelete(DeleteBehavior.NoAction);
         });
+        
         
         base.OnModelCreating(builder);
     }
