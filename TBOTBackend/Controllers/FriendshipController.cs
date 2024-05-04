@@ -18,24 +18,38 @@ public class FriendshipController : ControllerBase
         _friendshipRepository = friendshipRepository;
     }
     
-    [HttpPost("sendRequest")]
+    [HttpPost("sendRequest/{senderId}/{receiverId}")]
     public async Task<IActionResult> SendFriendRequest(int senderId, int receiverId)
     {
-        await _friendshipRepository.SendFriendRequest(senderId, receiverId);
-        return Ok("Friend request sent successfully.");
+        var message = await _friendshipRepository.SendFriendRequest(senderId, receiverId);
+        return Ok(new { message });
     }
 
-    [HttpPut("acceptRequest")]
+    [HttpPut("acceptRequest/{senderId}/{receiverId}")]
     public async Task<IActionResult> AcceptFriendRequest(int senderId, int receiverId)
     {
-        await _friendshipRepository.AcceptFriendRequest(senderId, receiverId);
-        return Ok("Friend request accepted successfully.");
+        var message = await _friendshipRepository.AcceptFriendRequest(senderId, receiverId);
+        return Ok(new { message });
     }
 
-    [HttpDelete("declineRequest")]
+    [HttpDelete("declineRequest/{senderId}/{receiverId}")]
     public async Task<IActionResult> DeclineFriendRequest(int senderId, int receiverId)
     {
-        await _friendshipRepository.DeclineFriendRequest(senderId, receiverId);
-        return Ok("Friend request declined successfully.");
+        var message = await _friendshipRepository.DeclineFriendRequest(senderId, receiverId);
+        return Ok(new { message });
+    }
+    
+    [HttpGet("{userId}")]
+    public async Task<ActionResult<List<Friendship>>> GetAllFriendships(int userId)
+    {
+        try
+        {
+            var friendships = await _friendshipRepository.GetAllFriendshipsById(userId);
+            return Ok(friendships);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "Internal server error");
+        }
     }
 }
