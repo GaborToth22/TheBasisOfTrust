@@ -15,7 +15,7 @@ public class BalanceRepository : IBalanceRepository
     
     public void AddBalance(Expense expense)
     {
-        if (expense.Split == Split.SplitEqually)
+        if (expense.Split == Split.Equally)
         {
             foreach (var participant in expense.Participants)
             {
@@ -45,11 +45,11 @@ public class BalanceRepository : IBalanceRepository
                     {
                         ExpenseId = expense.Id,
                         Expense = expense,
-                        UserId = participant.UserId,
-                        User = participant.User,
+                        UserId = expense.PaidById,
+                        User = expense.Payer,
                         Amount = expense.Amount ,
-                        ParticipantUserId = expense.PaidById,
-                        ParticipantUser = expense.Payer
+                        ParticipantUserId = participant.UserId,
+                        ParticipantUser = participant.User
                     };
                     _dbContext.Balances.Add(balance);
                 }

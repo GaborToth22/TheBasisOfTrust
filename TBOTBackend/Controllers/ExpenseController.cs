@@ -1,4 +1,6 @@
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using TBOTBackend.Model;
 using TBOTBackend.Repositories;
 
@@ -51,18 +53,34 @@ public class ExpenseController : ControllerBase
     }
     
     [HttpPost]
-    public ActionResult<Expense> CreateExpense(Expense expense)
+    public ActionResult<Expense> CreateExpense([FromBody] ExpenseInputModel model)
     {
         try
         {
+            var participants = new Collection<ExpenseParticipant>();
+            foreach (var id in  model.ParticipantIds)
+            {
+                participants.Add(new ExpenseParticipant { UserId = id });
+            }
+            
+            var expense = new Expense
+            {
+                Amount = model.Amount,
+                Date = model.Date,
+                Description = model.Description,
+                PaidById = model.PaidById,
+                Participants = participants,
+                Split = (Split)model.Split
+            };
+            
             _expenseRepository.AddExpense(expense);
             _balanceRepository.AddBalance(expense);
             return Ok(expense);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error create ad.");
-            return BadRequest("Error create ad.");
+            _logger.LogError(e, "Error creating expense.");
+            return BadRequest("Error creating expense.");
         }
     }
     
