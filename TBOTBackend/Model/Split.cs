@@ -2,7 +2,7 @@ namespace TBOTBackend.Model;
 
 public enum Split
 {
-    SplitEqually,
-    YouOwe,
-    OwesYou
+    Equally = 1,
+    YouOwe = 2,
+    OwesYou = 3
 }
