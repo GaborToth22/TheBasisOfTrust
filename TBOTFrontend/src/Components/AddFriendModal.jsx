@@ -112,8 +112,13 @@ function AddFriendModal(props) {
                     <p>{message}</p>
                 )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleClose}>Close</Button>
+        <Modal.Footer className="d-flex justify-content-between align-items-center">
+            <div>
+                <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+            </div>
+            <div>
+                <Button onClick={handleClose}>Close</Button>
+            </div>
         </Modal.Footer>
       </Modal>
     );
