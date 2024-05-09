@@ -68,3 +68,13 @@
 .fonts {
   font-size: large;
 }
+
+.fontsRed {
+  font-size: large;
+  color: #Fbb090;
+}
+
+.fontsGreen {
+  font-size: large;
+  color: #C6F3AE;
+}
