@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace TBOTBackend.Model;
 
 public class Expense
@@ -8,6 +10,7 @@ public class Expense
     public string Description { get; init; }
     public int PaidById { get; init; }
     public User Payer { get; init; }
+    [JsonIgnore]
     public ICollection<ExpenseParticipant> Participants { get; set; }
     public Split Split { get; init; }
 }
