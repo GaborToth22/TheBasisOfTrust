@@ -9,8 +9,6 @@ public class Expense
     public DateTime Date { get; init; }
     public string Description { get; init; }
     public int PaidById { get; init; }
-    public User Payer { get; init; }
-    [JsonIgnore]
     public ICollection<ExpenseParticipant> Participants { get; set; }
     public Split Split { get; init; }
 }
