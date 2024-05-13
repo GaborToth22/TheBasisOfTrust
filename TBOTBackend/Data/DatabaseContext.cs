@@ -20,44 +20,56 @@ public class DatabaseContext : DbContext
         
         builder.Entity<Expense>(e =>
         {
-            e.HasOne(e => e.Payer)
+            e.HasKey(e => e.Id);
+
+            e.Property(e => e.Amount)
+                .HasColumnType("decimal(18, 2)");
+
+            e.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(e => e.PaidById)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-
-            e.Property(s => s.Amount)
-                .HasColumnType("decimal(18, 2)");
         });
         
         builder.Entity<ExpenseParticipant>(e =>
         {
             e.HasKey(ep => new { ep.ExpenseId, ep.UserId });
-            
-            e.HasOne(ep => ep.Expense)
-                .WithMany(e => e.Participants)
-                .HasForeignKey(ep => ep.ExpenseId);
-            
-            e.HasOne(ep => ep.User)
-                .WithMany()
-                .HasForeignKey(ep => ep.UserId);
         });
         
         builder.Entity<Balance>(e =>
         {
-            e.HasOne(b => b.Expense)
+            e.HasKey(b => b.Id);
+
+            e.Property(b => b.Amount)
+                .IsRequired();
+
+            e.Property(b => b.ExpenseId)
+                .IsRequired();
+
+            e.Property(b => b.UserId)
+                .IsRequired(); 
+
+            e.Property(b => b.ParticipantUserId)
+                .IsRequired(); 
+            
+            e.HasIndex(b => b.ExpenseId);
+            e.HasIndex(b => b.UserId);
+            e.HasIndex(b => b.ParticipantUserId);
+
+            e.HasOne<Expense>()
                 .WithMany()
                 .HasForeignKey(b => b.ExpenseId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            e.HasOne(b => b.User)
+            e.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.NoAction);
-            
-            e.HasOne(b => b.ParticipantUser)
+        
+            e.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(b => b.ParticipantUserId)
                 .IsRequired()
@@ -66,16 +78,17 @@ public class DatabaseContext : DbContext
         
         builder.Entity<Friendship>(e =>
         {
+            e.HasKey(f => f.Id);
+
             e.Property(f => f.Id)
                 .ValueGeneratedOnAdd();
-            e.HasKey(f => f.Id);
-            
-            e.HasOne(f => f.Sender)
+
+            e.HasOne<User>()
                 .WithMany(u => u.FriendshipsSent)
                 .HasForeignKey(f => f.SenderId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            e.HasOne(f => f.Receiver)
+            e.HasOne<User>()
                 .WithMany(u => u.FriendshipsReceived)
                 .HasForeignKey(f => f.ReceiverId)
                 .OnDelete(DeleteBehavior.NoAction);
