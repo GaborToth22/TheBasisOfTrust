@@ -24,12 +24,9 @@ public class BalanceRepository : IBalanceRepository
                     var balance = new Balance
                     {
                         ExpenseId = expense.Id,
-                        Expense = expense,
                         UserId = expense.PaidById,
-                        User = expense.Payer,
                         Amount = expense.Amount / expense.Participants.Count,
                         ParticipantUserId = participant.UserId,
-                        ParticipantUser = participant.User
                     };
                     _dbContext.Balances.Add(balance);
                 }
@@ -44,12 +41,9 @@ public class BalanceRepository : IBalanceRepository
                     var balance = new Balance
                     {
                         ExpenseId = expense.Id,
-                        Expense = expense,
                         UserId = expense.PaidById,
-                        User = expense.Payer,
                         Amount = expense.Amount ,
                         ParticipantUserId = participant.UserId,
-                        ParticipantUser = participant.User
                     };
                     _dbContext.Balances.Add(balance);
                 }
@@ -64,12 +58,9 @@ public class BalanceRepository : IBalanceRepository
                     var balance = new Balance
                     {
                         ExpenseId = expense.Id,
-                        Expense = expense,
                         UserId = expense.PaidById,
-                        User = expense.Payer,
                         Amount = expense.Amount ,
                         ParticipantUserId = participant.UserId,
-                        ParticipantUser = participant.User
                     };
                     _dbContext.Balances.Add(balance);
                 }

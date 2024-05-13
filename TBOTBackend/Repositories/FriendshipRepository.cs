@@ -33,10 +33,6 @@ public class FriendshipRepository : IFriendshipRepository
         {
             SenderId = senderId,
             ReceiverId = receiverId,
-            SenderName = sender.Username,
-            SenderEmail = sender.Email,
-            ReceiverName = receiver.Username,
-            ReceiverEmail = receiver.Email,
             Accepted = false
         };
 
@@ -80,12 +76,10 @@ public class FriendshipRepository : IFriendshipRepository
     {
         var friendshipsS = await _dbContext.Friendships
             .Where(f => f.SenderId == userId)
-            .Include(f => f.Receiver) 
             .ToListAsync(); 
         
         var friendshipsR = await _dbContext.Friendships
             .Where(f => f.ReceiverId == userId)
-            .Include(f => f.Sender) 
             .ToListAsync();
         
 
