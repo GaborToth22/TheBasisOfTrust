@@ -15,12 +15,14 @@ public class ExpenseController : ControllerBase
     private readonly ILogger<ExpenseController> _logger;
     private readonly IExpenseRepository _expenseRepository;
     private readonly IBalanceRepository _balanceRepository;
+    private readonly IUserRepository _userRepository;
 
-    public ExpenseController(IExpenseRepository expenseRepository, ILogger<ExpenseController> logger, IBalanceRepository balanceRepository)
+    public ExpenseController(IExpenseRepository expenseRepository, ILogger<ExpenseController> logger, IBalanceRepository balanceRepository, IUserRepository userRepository)
     {
         _logger = logger;
         _expenseRepository = expenseRepository;
         _balanceRepository = balanceRepository;
+        _userRepository = userRepository;
     }
     
     [HttpGet]
@@ -52,15 +54,39 @@ public class ExpenseController : ControllerBase
         }
     }
     
+    [HttpGet("userId/{id}")]
+    public async Task<ActionResult<Expense>> GetAllByUserId(int id)
+    {
+        try
+        {
+            var expense = await _expenseRepository.GetAllByUserId(id);
+            return Ok(expense);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error getting user data.");
+            return NotFound("Error getting user data.");
+        }
+    }
+    
     [HttpPost]
-    public ActionResult<Expense> CreateExpense([FromBody] ExpenseInputModel model)
+    public async Task<ActionResult<Expense>> CreateExpense([FromBody] ExpenseInputModel model)
     {
         try
         {
             var participants = new Collection<ExpenseParticipant>();
             foreach (var id in  model.ParticipantIds)
             {
-                participants.Add(new ExpenseParticipant { UserId = id });
+                Console.WriteLine(id);
+                var user = await _userRepository.GetUserById(id);
+                Console.WriteLine(user.Username);
+                if (user != null)
+                {
+                    participants.Add(new ExpenseParticipant { UserId = id, Username = user.Username });
+                }else
+                {
+                    _logger.LogWarning($"User with id {id} not found.");
+                }
             }
             
             var expense = new Expense
@@ -99,4 +125,6 @@ public class ExpenseController : ControllerBase
             return NotFound("Error getting ad data.");
         }
     }
+    
+    
 }
