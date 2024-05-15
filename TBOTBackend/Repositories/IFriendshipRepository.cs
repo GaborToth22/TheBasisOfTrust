@@ -8,4 +8,5 @@ public interface IFriendshipRepository
     Task<string> AcceptFriendRequest(int senderId, int receiverId);
     Task<string> DeclineFriendRequest(int senderId, int receiverId);
     Task<List<Friendship>> GetAllFriendshipsById(int userId);
+    Task<List<User>> CheckFriendshipsForPaidBy(List<int> userIds);
 }

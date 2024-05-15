@@ -7,11 +7,13 @@ namespace TBOTBackend.Repositories;
 public class FriendshipRepository : IFriendshipRepository
 {
     private readonly DatabaseContext _dbContext;
+    private readonly IUserRepository _userRepository;
     
     
-    public FriendshipRepository(DatabaseContext dbContext)
+    public FriendshipRepository(DatabaseContext dbContext, IUserRepository userRepository)
     {
         _dbContext = dbContext;
+        _userRepository = userRepository;
     }
     
     public async Task<string> SendFriendRequest(int senderId, int receiverId)
@@ -32,7 +34,11 @@ public class FriendshipRepository : IFriendshipRepository
         var friendship = new Friendship
         {
             SenderId = senderId,
+            SenderName = sender.Username,
+            SenderEmail = sender.Email,
             ReceiverId = receiverId,
+            ReceiverName = receiver.Username,
+            ReceiverEmail = receiver.Email,
             Accepted = false
         };
 
@@ -86,5 +92,36 @@ public class FriendshipRepository : IFriendshipRepository
         var allFriendships = friendshipsS.Concat(friendshipsR).ToList();
 
         return allFriendships;
+    }
+
+    public async Task<List<User>> CheckFriendshipsForPaidBy(List<int> userIds)
+    {
+        var users = new List<User>();
+        foreach (var userId in userIds)
+        {
+            var user = await _userRepository.GetUserById(userId);
+            var friendships = 0;
+            foreach (var userId2 in userIds)
+            {
+                if (userId != userId2)
+                {
+                    var friendship = await _dbContext.Friendships.FirstOrDefaultAsync(f =>
+                        (f.SenderId == userId && f.ReceiverId == userId2) ||
+                        (f.SenderId == userId2 && f.ReceiverId == userId));
+
+                    if (friendship != null && friendship.Accepted)
+                    {
+                        friendships++;
+                    }
+                }
+            }
+
+            if (friendships == userIds.Count - 1)
+            {
+                users.Add(user);
+            }
+        }
+
+        return users;
     }
 }
