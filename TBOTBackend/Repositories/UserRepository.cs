@@ -32,8 +32,34 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetUserByUsername(string username)
     {
         return await _dbContext.Users
-            .SingleOrDefaultAsync(u => u.Username == username);
-            
+            .Include(u => u.FriendshipsSent)
+            .Include(u => u.FriendshipsReceived)
+            .Where(u => u.Username == username)
+            .Select(u => new User 
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Email = u.Email,
+                FriendshipsSent = u.FriendshipsSent.Select(f => new Friendship 
+                {
+                    Id = f.Id,
+                    SenderId = f.SenderId,
+                    ReceiverId = f.ReceiverId,
+                    ReceiverName = f.ReceiverName,
+                    ReceiverEmail = f.ReceiverEmail,
+                    Accepted = f.Accepted
+                }).ToList(),
+                FriendshipsReceived = u.FriendshipsReceived.Select(f => new Friendship 
+                {
+                    Id = f.Id,
+                    SenderId = f.SenderId,
+                    SenderName = f.SenderName,
+                    SenderEmail = f.SenderEmail,
+                    ReceiverId = f.ReceiverId,
+                    Accepted = f.Accepted
+                }).ToList()
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<User?> GetUserById(int id)
