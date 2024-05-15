@@ -1,5 +1,5 @@
 import {Modal, Button, Form, FormGroup, FormLabel, Row, Col  } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoggedUser } from '../Services/LoggedUserProvider';
 import DeleteFriend from './DeleteFriend';
 import AddFriend from './AddFriend';
@@ -14,9 +14,13 @@ function AddExpenseModal(props) {
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
   const [paidBy, setPaidBy] = useState(loggedUser.id);
   const [split, setSplit] = useState(1);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
+  const [options, setOptions] = useState([]);
   
-console.log(split)
+  useEffect(() => {   
+    checkPaidByOptions(participants);        
+}, [loggedUser, participants]);
+
   const handleFilterChange = (event) => {
     const inputValue = event.target.value.toLowerCase();
     const filtered = loggedUser.friendshipsSent
@@ -77,7 +81,7 @@ console.log(split)
     setDescription("");
     setMessage("");
     props.onHide();
-};
+  };
 
   const addParticipant = (friendship) => {
     if (!participants.some(participant => participant.id === friendship.id)) {
@@ -91,7 +95,39 @@ console.log(split)
     setParticipants(updatedParticipants);
   }
 
-  console.log(participants)
+ async function checkPaidByOptions(participants){
+    const participantsIds = participants.map(p => p.senderName === null ? p.receiverId : p.senderId);
+  
+  try {
+    const response = await fetch('/friendship/checkPaidBy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(participantsIds)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch paid by options');
+    }
+
+    const users = await response.json();
+    setOptions(users);
+  } catch (error) {
+    console.error('Error fetching paid by options:', error);
+    return [];
+  }
+    }
+    console.log(options)
+    function renderOptions(users){
+    console.log(users);
+    return users.map(user => (
+      <option key={user.id} value={user.id}>
+          {user.username}
+      </option>
+  ));
+  }
+  
   return (
     <Modal
       {...props}
@@ -153,11 +189,7 @@ console.log(split)
               <Col className="col-auto mt-1">
                 <Form.Select value={paidBy} onChange={(e) => setPaidBy(e.target.value)}>
                   <option value={loggedUser.id}>You</option>
-                  {participants.map((participant) => (
-                    <option key={participant.id} value={participant.senderName === null ? participant.receiverId : participant.senderId}>
-                      {participant.senderName === null ? participant.receiverName : participant.senderName}
-                    </option>
-                  ))}
+                  {renderOptions(options)}
                 </Form.Select>
               </Col>
               <Col className="col-2 mt-2">Split:</Col>
