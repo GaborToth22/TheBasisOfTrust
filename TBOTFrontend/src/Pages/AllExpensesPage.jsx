@@ -28,8 +28,7 @@ function AllExpensesPage(){
             let owesYouSum = 0.00;
 
             balances.forEach(balance => {
-                const amount = balance.amount;                
-                console.log(balance.userId)
+                const amount = balance.amount; 
                 if (balance.userId == loggedUser.id) {
                     userBalances[balance.participantUserId] = (userBalances[balance.participantUserId] || 0) + amount;
                 } else {
@@ -54,8 +53,7 @@ function AllExpensesPage(){
         setUserBalances(formattedBalances);
         }
     }, [balances, loggedUser, addExpenseModalShow]);
-    console.log(expenses)
-
+    
     const fetchExpenses = async () => {
         try {
             const response = await fetch(`/expense/userId/${loggedUser.id}`);
@@ -188,7 +186,7 @@ function AllExpensesPage(){
                         </Col>
                     </Row>
                     <Row className=' text-white'>
-                        <Col className="d-flex justify-content-between align-items-center" style={{borderBottom: '1px solid black'}}>
+                        <Col className="d-flex justify-content-between align-items-center" style={{borderBottom: '1px solid black', backgroundColor: '#065F81'}}>
                             <div className="align-items-center justify-content-center text-center" style={{width: '25%'}}>
                                 <p>Date</p>
                             </div>

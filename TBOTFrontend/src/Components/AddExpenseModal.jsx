@@ -117,10 +117,8 @@ function AddExpenseModal(props) {
     console.error('Error fetching paid by options:', error);
     return [];
   }
-    }
-    console.log(options)
+    }    
     function renderOptions(users){
-    console.log(users);
     return users.map(user => (
       <option key={user.id} value={user.id}>
           {user.username}

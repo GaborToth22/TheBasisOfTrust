@@ -13,8 +13,6 @@ function SettleUpModal(props) {
   const [paidBy, setPaidBy] = useState(loggedUser.id);
   const [message, setMessage] = useState("");
 
-  
-console.log(userBalances)
   const handleFilterChange = (event) => {
     setSelectedFriend(event.target.value);
     const balance = -1*userBalances[event.target.value];
@@ -59,8 +57,7 @@ console.log(userBalances)
         }),
       });
 
-      if (response.ok) {
-        console.log('Expense successfully created.');
+      if (response.ok) {        
         setMessage('Settle Up successfully');
         setTimeout(() => {
           handleClose();
@@ -124,8 +121,6 @@ console.log(userBalances)
       )
   }
 
-  console.log(paidBy)
-  console.log(selectedFriend)
   return (
     <Modal
       {...props}

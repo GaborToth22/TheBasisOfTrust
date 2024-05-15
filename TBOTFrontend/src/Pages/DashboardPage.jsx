@@ -39,6 +39,7 @@ function DashboardPage(){
             setFilteredFriends(filtered);
         }
     }, [loggedUser, filter]);
+    console.log(loggedUser)
 
     useEffect(() => {
         if (balances && loggedUser) {
@@ -62,7 +63,6 @@ function DashboardPage(){
                     owesYouSum += balance;
                 }
             });
-    console.log(youOweSum)
             const formattedBalances = {};
         Object.keys(userBalances).forEach(key => {
             formattedBalances[key] = userBalances[key].toFixed(2);
@@ -106,7 +106,9 @@ function DashboardPage(){
     };
 
     function renderYouOwe(userBalances) {
-      const friendships = loggedUser.friendshipsSent.concat(loggedUser.friendshipsReceived);
+        const friendshipsSent = loggedUser.friendshipsSent || [];
+        const friendshipsReceived = loggedUser.friendshipsReceived || [];
+        const friendships = friendshipsSent.concat(friendshipsReceived);
       return(
         <>
             {Object.entries(userBalances).map(([userId, balance]) => {
@@ -271,7 +273,7 @@ function DashboardPage(){
                             <Col className="d-flex justify-content-between align-items-center" style={{borderTop: '1px solid black', borderBottom: '1px solid black'}}>
                                 <div className="align-items-center justify-content-center text-center" style={{width: '33%'}}>
                                     <p>You owe</p>
-                                    <p className={youOwe !== 0 ? "fontsRed" : "fonts"}>{youOwe} </p>
+                                    <p className={youOwe != 0 ? "fontsRed" : "fonts"}>{youOwe} </p>
                                 </div>
                                 <div className="align-items-center justify-content-center text-center" style={{width: '33%'}}>
                                     <p>Total balance</p>
@@ -279,7 +281,7 @@ function DashboardPage(){
                                 </div>
                                 <div className="align-items-center justify-content-center text-center" style={{width: '33%'}}>
                                     <p>You are owed</p>
-                                    <p className={owesYou !== 0 ? "fontsGreen" : "fonts"}>{owesYou}</p>
+                                    <p className={owesYou != 0 ? "fontsGreen" : "fonts"}>{owesYou}</p>
                                 </div>
                             </Col>
                         </Row>
