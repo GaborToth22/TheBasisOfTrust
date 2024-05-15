@@ -52,4 +52,18 @@ public class FriendshipController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
+    
+    [HttpPost("checkPaidBy")]
+    public async Task<ActionResult<List<User>>> CheckFriendshipsForPaidBy(List<int> userIds)
+    {
+        try
+        {
+            var users = await _friendshipRepository.CheckFriendshipsForPaidBy(userIds);
+            return Ok(users);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
+    }
 }
