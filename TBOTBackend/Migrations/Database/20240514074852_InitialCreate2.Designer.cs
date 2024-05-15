@@ -12,7 +12,7 @@ using TBOTBackend.Data;
 namespace TBOTBackend.Migrations.Database
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240503082743_InitialCreate2")]
+    [Migration("20240514074852_InitialCreate2")]
     partial class InitialCreate2
     {
         /// <inheritdoc />
@@ -95,9 +95,11 @@ namespace TBOTBackend.Migrations.Database
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ExpenseId", "UserId");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("UserId");
+                    b.HasKey("ExpenseId", "UserId");
 
                     b.ToTable("ExpenseParticipants");
                 });
@@ -167,78 +169,56 @@ namespace TBOTBackend.Migrations.Database
 
             modelBuilder.Entity("TBOTBackend.Model.Balance", b =>
                 {
-                    b.HasOne("TBOTBackend.Model.Expense", "Expense")
+                    b.HasOne("TBOTBackend.Model.Expense", null)
                         .WithMany()
                         .HasForeignKey("ExpenseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TBOTBackend.Model.User", "ParticipantUser")
+                    b.HasOne("TBOTBackend.Model.User", null)
                         .WithMany()
                         .HasForeignKey("ParticipantUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TBOTBackend.Model.User", "User")
+                    b.HasOne("TBOTBackend.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Expense");
-
-                    b.Navigation("ParticipantUser");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TBOTBackend.Model.Expense", b =>
                 {
-                    b.HasOne("TBOTBackend.Model.User", "Payer")
+                    b.HasOne("TBOTBackend.Model.User", null)
                         .WithMany()
                         .HasForeignKey("PaidById")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Payer");
                 });
 
             modelBuilder.Entity("TBOTBackend.Model.ExpenseParticipant", b =>
                 {
-                    b.HasOne("TBOTBackend.Model.Expense", "Expense")
+                    b.HasOne("TBOTBackend.Model.Expense", null)
                         .WithMany("Participants")
                         .HasForeignKey("ExpenseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TBOTBackend.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Expense");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TBOTBackend.Model.Friendship", b =>
                 {
-                    b.HasOne("TBOTBackend.Model.User", "Receiver")
+                    b.HasOne("TBOTBackend.Model.User", null)
                         .WithMany("FriendshipsReceived")
                         .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("TBOTBackend.Model.User", "Sender")
+                    b.HasOne("TBOTBackend.Model.User", null)
                         .WithMany("FriendshipsSent")
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("TBOTBackend.Model.Expense", b =>

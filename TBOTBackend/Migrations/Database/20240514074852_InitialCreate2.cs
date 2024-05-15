@@ -113,7 +113,8 @@ namespace TBOTBackend.Migrations.Database
                 columns: table => new
                 {
                     ExpenseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,12 +123,6 @@ namespace TBOTBackend.Migrations.Database
                         name: "FK_ExpenseParticipants_Expenses_ExpenseId",
                         column: x => x.ExpenseId,
                         principalTable: "Expenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExpenseParticipants_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -145,11 +140,6 @@ namespace TBOTBackend.Migrations.Database
             migrationBuilder.CreateIndex(
                 name: "IX_Balances_UserId",
                 table: "Balances",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExpenseParticipants_UserId",
-                table: "ExpenseParticipants",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(

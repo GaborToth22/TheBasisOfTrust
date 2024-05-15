@@ -17,6 +17,8 @@ function SettleUpModal(props) {
 console.log(userBalances)
   const handleFilterChange = (event) => {
     setSelectedFriend(event.target.value);
+    const balance = -1*userBalances[event.target.value];
+    setAmount(balance);
   };
 
   const handlePaidByChange = (event) => {
@@ -26,6 +28,8 @@ console.log(userBalances)
       setSelectedFriend(loggedUser.id)
     }
     setPaidBy(event.target.value);
+    const balance = userBalances[event.target.value];
+    setAmount(balance);
   };
 
   const handleSubmit = async (e) => {

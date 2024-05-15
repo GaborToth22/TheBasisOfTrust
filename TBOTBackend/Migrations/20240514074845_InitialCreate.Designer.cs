@@ -12,7 +12,7 @@ using TBOTBackend.Data;
 namespace TBOTBackend.Migrations
 {
     [DbContext(typeof(UsersContext))]
-    [Migration("20240503082737_InitialCreate")]
+    [Migration("20240514074845_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
