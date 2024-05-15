@@ -7,10 +7,12 @@ namespace TBOTBackend.Repositories;
 public class ExpenseRepository : IExpenseRepository
 {
     private readonly DatabaseContext _dbContext;
+    private readonly IUserRepository _userRepository;
     
-    public ExpenseRepository(DatabaseContext dbContext)
+    public ExpenseRepository(DatabaseContext dbContext, IUserRepository userRepository)
     {
         _dbContext = dbContext;
+        _userRepository = userRepository;
     }
     
     public async Task<List<Expense>> GetAll()
@@ -24,12 +26,17 @@ public class ExpenseRepository : IExpenseRepository
             .Where(e => e.Participants.Any(p => p.UserId == userId))
             .Include(e => e.Participants)
             .ToListAsync();
-
-        // A Participants kollekcióban csak a UserId-k maradnak
+        
         foreach (var expense in expensesWithUserIds)
         {
-            var userIds = expense.Participants.Select(p => p.UserId).ToList();
-            expense.Participants = userIds.Select(id => new ExpenseParticipant { UserId = id }).ToList();
+            foreach (var participant in expense.Participants)
+            {
+                var user = await _userRepository.GetUserById(participant.UserId);
+                if (user != null)
+                {
+                    participant.Username = user.Username;
+                }
+            }
         }
 
         return expensesWithUserIds;
