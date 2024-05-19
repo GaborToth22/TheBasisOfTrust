@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from '../Components/Navbar';
-import { Container, Row, Col, Button, Form, FormGroup, FormLabel, Stack } from 'react-bootstrap';
+import { Container, Row, Col, Button} from 'react-bootstrap';
 import { useLoggedUser } from '../Services/LoggedUserProvider';
 import AddExpenseModal from "../Components/AddExpenseModal";
 import SettleUpModal from "../Components/SettleUpModal";
@@ -128,7 +128,7 @@ function AllExpensesPage(){
                                                     index === array.length - 1 ? participant.username : participant.username 
                                                 )
                                                 .join(', ')
-                                                .replace(/,([^,]*)$/, ' and$1')} owes you with ${(expense.amount / expense.participants.length).toFixed(2)}`))  
+                                                .replace(/,([^,]*)$/, ' and$1')} owes You with ${(expense.amount / expense.participants.length).toFixed(2)}`))  
                                     :
                                         (expense.description === "Settle Up" ? 
                                         (`${expense.participants
@@ -137,7 +137,7 @@ function AllExpensesPage(){
                                                 index === array.length - 1 ? participant.username : participant.username 
                                             )
                                             .join(', ')
-                                            .replace(/,([^,]*)$/, ' and$1')} paid back you ${expense.amount}`)
+                                            .replace(/,([^,]*)$/, ' and$1')} paid back You ${expense.amount}`)
                                          
                                             : 
                                             (`You,  ${expense.participants

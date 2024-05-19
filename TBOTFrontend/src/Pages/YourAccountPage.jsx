@@ -18,7 +18,7 @@ function YourAccountPage(){
                             </div>                            
                         </Col>
                         <Col xs={6} md={6} lg={6}>
-                            <div className="align-items-center justify-content-center " style={{width: '50%', margin: 8}}>
+                            <div className="align-items-center justify-content-center " style={{width: '50%', margin: 15}}>
                                 <p>Username: {loggedUser.username}</p>                                
                                 <p>Email: {loggedUser.email}</p>                                
                             </div>                            

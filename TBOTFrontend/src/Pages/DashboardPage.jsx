@@ -255,7 +255,7 @@ function DashboardPage(){
                     </FormGroup>
                     <div className="mt-3" style={{backgroundColor: '#067f99', borderRadius: '6px'}}>
                         <div style={{backgroundColor: '#067f99', borderRadius: '6px' , height: '91vh'}}>
-                            <div className="d-flex justify-content-between "><div className='ml-3'>Friends</div><AddFriend text={"+Add Friend"} onClick={() => setAddFriendModalShow(true)}/></div>
+                            <div className="d-flex justify-content-between "><div className='m-3'>Friends</div><AddFriend text={"+Add Friend"} onClick={() => setAddFriendModalShow(true)}/></div>
                             {renderFriends(loggedUser)}  
                         </div> 
                     </div> 
@@ -302,7 +302,7 @@ function DashboardPage(){
                 <Col xs={3} md={3} lg={3} style={{ marginTop: '2.3rem' }}>
                 <div className="mt-3" style={{backgroundColor: '#067f99', borderRadius: '6px'}}>
                         <div style={{backgroundColor: '#067f99', borderRadius: '6px' , height: '91vh'}}>
-                            <div className="d-flex justify-content-between "><div className='ml-3'>Friend Requests</div><AddFriend text={"+Add Friend"} onClick={() => setAddFriendModalShow(true)}/></div>
+                            <div className="d-flex justify-content-between "><div className='m-3'>Friend Requests</div><AddFriend text={"+Add Friend"} onClick={() => setAddFriendModalShow(true)}/></div>
                             {renderFriendRequestes(loggedUser)}  
                         </div>
                     </div>                    

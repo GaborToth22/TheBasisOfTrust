@@ -40,6 +40,11 @@
   margin-right: 2px;
 }  
 
+.profil-image {  
+  margin: 15px;
+  border-radius: 18px;
+}
+
 .icon-buttons {
   width: 25px;
   height: 25px;
