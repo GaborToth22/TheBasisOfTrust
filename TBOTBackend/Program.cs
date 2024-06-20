@@ -25,6 +25,14 @@ AddIdentity();
 
 var app = builder.Build();
 
+//ezt csak a native miatt tettem be hogy testeléshez átengedjen mindent 
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin() // Vagy megadhatod az engedélyezett eredeti URL-eket is: options.WithOrigins("http://localhost:8081")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
