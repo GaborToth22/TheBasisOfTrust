@@ -108,10 +108,10 @@ function SettleUpModal(props) {
           {Object.entries(userBalances).map(([userId, balance]) => {
               if (balance > 0) {
                   const friend = friendships.find(friendship => friendship.receiverId == userId || friendship.senderId == userId);
-                  const friendName = friend.receiverId == userId ? friend.receiverName : friend.senderName;
-                  const id = friend.receiverId == userId ? friend.receiverId : friend.senderId;
+                  const friendName = friend?.receiverId == userId ? friend?.receiverName : friend?.senderName;
+                  const id = friend?.receiverId == userId ? friend?.receiverId : friend?.senderId;
                   return (
-                      <option key={friend.id} value={id}>{friendName}</option>
+                      <option key={friend?.id} value={id}>{friendName}</option>
                   );
               } else {
                   return null;

@@ -134,8 +134,8 @@ function DashboardPage(){
         <>
             {Object.entries(userBalances).map(([userId, balance]) => {
                 if (balance > 0) {
-                    const friend = friendships.find(friendship => friendship.receiverId == userId || friendship.senderId == userId);
-                    const friendName = friend.receiverId == userId ? friend.receiverName : friend.senderName;
+                    const friend = friendships.find(friendship => friendship?.receiverId == userId || friendship?.senderId == userId);
+                    const friendName = friend?.receiverId == userId ? friend?.receiverName : friend?.senderName;
                     return (
                         <div key={userId}>
                             <span>{friendName} </span><span className='fontsGreen'>{balance}</span>                            
