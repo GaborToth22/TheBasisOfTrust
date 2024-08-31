@@ -9,7 +9,7 @@ function AcceptRequest({ onClick }){
 
 return(
     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-        <img src='/src/Images/accept.png' alt="Logout" className="icon-buttons" onClick={onClick}/>
+        <img src='/Images/accept.png' alt="Logout" className="icon-buttons" onClick={onClick}/>
     </OverlayTrigger>
 )
 }

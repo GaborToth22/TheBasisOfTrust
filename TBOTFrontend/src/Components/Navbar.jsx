@@ -25,7 +25,7 @@ function Navbar(){
                 <Col xs={4} sm={8} md={8} lg={8}>
                     <Nav variant="underline" className="justify-content-between">
                         <Nav.Item>
-                            <Nav.Link href="/" className={`text-white ${location.pathname === '/' ? 'active' : ''}`}>Dashboard</Nav.Link>
+                            <Nav.Link href="/dashboard" className={`text-white ${location.pathname === '/dashboard' ? 'active' : ''}`}>Dashboard</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link href="/allExpenses" className={`text-white ${location.pathname === '/allExpenses' ? 'active' : ''}`}>All Expenses</Nav.Link>
@@ -41,7 +41,7 @@ function Navbar(){
                         <NavbarText className="text-white navbar-text">{loggedUser ? loggedUser.username : ''}</NavbarText>
                     </Nav.Item>
                     <Nav.Item className="mt-1">
-                        <Link to="/login">
+                        <Link to="/">
                             <LogoutButton handleLogout={handleLogout}/>
                         </Link>
                     </Nav.Item>

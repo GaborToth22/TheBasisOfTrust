@@ -35,7 +35,7 @@ function LoginPage(){
                 console.log('User successfully logged in.');
                 console.log(userData);
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/dashboard');
                 }, 2000);
             } else {
                 setLoginError('Invalid username or password. Please try agagin.');
@@ -92,7 +92,7 @@ function LoginPage(){
                             <p>Not a member yet? <span onClick={() => setModalShow(true)} style={{ textDecoration: "underline", cursor: "pointer" }}>Click here to Register</span></p>
                         </Col>
                     </Row> 
-                    <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+                    <img src='/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
                     <RegistrationModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}/>

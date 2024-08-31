@@ -250,7 +250,7 @@ function DashboardPage(){
             <Row className=' text-white'>
                 <Col xs={3} md={3} lg={3}>
                     <FormGroup className='d-flex align-items-center'> 
-                        <img src='/src/Images/searchIcon.png' alt='search' className='search-image' />
+                        <img src='/Images/searchIcon.png' alt='search' className='search-image' />
                         <Form.Control type="text" placeholder="Filter by Name" value={filter} onChange={handleFilterChange}/>
                     </FormGroup>
                     <div className="mt-3" style={{backgroundColor: '#067f99', borderRadius: '6px'}}>
@@ -265,7 +265,7 @@ function DashboardPage(){
                         <Row>
                             <Col className="d-flex justify-content-between align-items-center">
                                 <Button variant="warning" onClick={() => setAddExpenseModalShow(true)} style={{width: '33%'}}>Add Expense</Button>
-                                <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+                                <img src='/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
                                 <Button variant="success" onClick={() => setSettleUpModalShow(true)} style={{width: '33%'}}>Settle Up</Button>
                             </Col>
                         </Row>

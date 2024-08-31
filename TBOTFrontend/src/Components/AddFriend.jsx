@@ -9,7 +9,7 @@ function AddFriend({ onClick, text, invertFilter = true  }){
 
 return(
     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-        <img src='/src/Images/addIcon.png' alt="AddFriend" className="icon-buttons" onClick={onClick} style={{ filter: invertFilter ? 'invert(100%)' : 'none' }}/>
+        <img src='/Images/addIcon.png' alt="AddFriend" className="icon-buttons" onClick={onClick} style={{ filter: invertFilter ? 'invert(100%)' : 'none' }}/>
     </OverlayTrigger>
 )
 }

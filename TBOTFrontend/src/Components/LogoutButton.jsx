@@ -9,7 +9,7 @@ function LogoutButton({ handleLogout }){
 
 return(
     <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-        <img src='/src/Images/logout.png' alt="Logout" className="logout-image" onClick={handleLogout}/>
+        <img src='/Images/logout.png' alt="Logout" className="logout-image" onClick={handleLogout}/>
     </OverlayTrigger>
 )
 }

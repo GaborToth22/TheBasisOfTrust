@@ -165,7 +165,7 @@ function AllExpensesPage(){
                     <Row >
                         <Col className="d-flex justify-content-between align-items-center">
                             <Button variant="warning" onClick={() => setAddExpenseModalShow(true)} style={{width: '33%'}}>Add Expense</Button>
-                            <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+                            <img src='/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
                             <Button variant="success" onClick={() => setSettleUpModalShow(true)} style={{width: '33%'}}>Settle Up</Button>
                         </Col>
                     </Row>

@@ -77,7 +77,7 @@ function RegistrationModal(props){
             )}
           <Modal.Footer className="d-flex justify-content-between align-items-center">
             <div>
-                <img src='/src/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
+                <img src='/Images/TBOT.png' alt='TBOTimg' className='tbot-image'/>
             </div>
             <div>
                 <Button onClick={handleSubmit}>Register</Button>                
