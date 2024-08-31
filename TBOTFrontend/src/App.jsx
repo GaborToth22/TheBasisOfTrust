@@ -13,8 +13,8 @@ function App() {
     <LoggedUserProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<DashboardPage/>} />
-          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/" element={<LoginPage/>} />
+          <Route path="/dashboard" element={<DashboardPage/>} />
           <Route path="/allExpenses" element={<AllExpensesPage/>} />
           <Route path="/yourAccount" element={<YourAccountPage/>} />
         </Routes>
