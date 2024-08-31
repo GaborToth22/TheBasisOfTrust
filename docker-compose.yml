@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+
+  frontend:
+    build:
+      context: ./TBOTFrontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    expose:
+      - 80
+    networks:
+      - chat-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./TBOTBackend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "5263:5263"
+    depends_on:
+      - db
+    networks:
+      - chat-network
+
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    expose:
+      - 1433
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    networks:
+      - chat-network
+
+volumes:
+  app_data:
+
+networks:
+  chat-network:
+    driver: bridge
