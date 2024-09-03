@@ -35,22 +35,22 @@ https://trello.com/b/TDyH1Fcv/the-basis-of-trust
 
 The dashboard shows who belongs to the user and to whom the user belongs to, as well as friends and friend requests:
 
-<img src="./TBOTFrontend/src/Images/tbotDashboard.JPG" alt="Dashboard" width="600" height="400">
+<img src="./TBOTFrontend/public/Images/tbotDashboard.JPG" alt="Dashboard" width="600" height="400">
 
 Finding friends and sending requests with a search bar in the modal:
 
-<img src="./TBOTFrontend/src/Images/tbotAddFriends.JPG" alt="AddFriends" width="600" height="400">
+<img src="./TBOTFrontend/public/Images/tbotAddFriends.JPG" alt="AddFriends" width="600" height="400">
 
 Create expense with the Add Expense button:
 
-<img src="./TBOTFrontend/src/Images/tbotAddExpens.JPG" alt="AddFriends" width="600" height="400">
+<img src="./TBOTFrontend/public/Images/tbotAddExpens.JPG" alt="AddFriends" width="600" height="400">
 
 Settle Ups can be recorded also:
 
-<img src="./TBOTFrontend/src/Images/tbotSettleUp.JPG" alt="AddFriends" width="600" height="400">
+<img src="./TBOTFrontend/public/Images/tbotSettleUp.JPG" alt="AddFriends" width="600" height="400">
 
 The user can check the entered expenses on the All Expenses page:
 
-<img src="./TBOTFrontend/src/Images/tbotAllExpenses.JPG" alt="AddFriends" width="600" height="400">
+<img src="./TBOTFrontend/public/Images/tbotAllExpenses.JPG" alt="AddFriends" width="600" height="400">
 
 ## Installation
