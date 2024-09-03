@@ -54,3 +54,8 @@ The user can check the entered expenses on the All Expenses page:
 <img src="./TBOTFrontend/public/Images/tbotAllExpenses.JPG" alt="AddFriends" width="600" height="400">
 
 ## Installation
+
+1. step: Clone this repository git@github.com:GaborToth22/TheBasisOfTrust.git
+2. step: Navigate to the TheBasisOfTrust map.
+3. step: Use the "docker compose up" command in the terminal.
+4. step: In the browser at localhost you can try and use the app.
